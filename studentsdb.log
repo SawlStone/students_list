@@ -1,0 +1,5 @@
+INFO 2016-01-18 14:28:56,454 signals: Student updated: Роман Мельник (ID: 6)
+INFO 2016-01-18 15:03:35,345 signals: Student added: Vasya Pupkin (ID: 10)
+INFO 2016-01-18 15:04:06,642 signals: Student deleted: Vasya Pupkin (ID: 10)
+INFO 2016-01-20 22:49:43,505 signals: Student updated: Петро Шовковський (ID: 8)
+INFO 2016-01-21 14:26:27,739 signals: Student updated: Василь Верба (ID: 3)

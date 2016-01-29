@@ -3,20 +3,18 @@
 {% load static from staticfiles %}
 {% load crispy_forms_tags %}
 
-{% block meta_title %}Редагувати Студунта{% endblock meta_title %}
+{% block meta_title %}Редагувати Студента{% endblock meta_title %}
 
 {% block title %}Редагувати Студента{% endblock title %}
 
 {% block status_message %}
 {% if form.errors %}
-<div class="alert alert-warning" role="alert">
-Будь-ласка, виправте наступні помилки!
-</div>
+<div class="alert alert-warning" role="alert">Будь-ласка, виправте наступні помилки</div>
 {% endif %}
 {% endblock %}
 
 {% block content %}
 
-    {% crispy form %}
+{% crispy form %}
 
 {% endblock content %}

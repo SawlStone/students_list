@@ -119,11 +119,12 @@ class StudentUpdateForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(StudentUpdateForm, self).__init__(*args, **kwargs)
+
         self.helper = FormHelper(self)
 
         # set form tag attributes
-        self.helper.action = reverse_lazy('student_edit',
-                                          kwargs['instance'].id)
+        self.helper.form_action = reverse_lazy('students_edit',
+                                          kwargs={'pk': kwargs['instance'].id})
         self.helper.form_method = 'POST'
         self.helper.form_class = 'form_horizontal'
 

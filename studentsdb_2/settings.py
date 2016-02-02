@@ -18,6 +18,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 PORTAL_URL = 'http://localhost:8000'
 
+# email settings
+# please, set here you smtp server details and your admin email
+ADMIN_EMAIL = 'admin@studentsdb_2'
+EMAIL_HOST = 'smtp.mandrillapp.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'it33@live.ru'
+EMAIL_HOST_PASSWORD = '12345'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/

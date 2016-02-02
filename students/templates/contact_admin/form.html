@@ -1,0 +1,25 @@
+{% extends "students/base.html" %}
+
+{% load static from staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block meta_title %}Зв'язок із Адміністратором{% endblock meta_title %}
+
+{% block title %}Зв'язок із Адміністратором{% endblock title %}
+
+{% block status_message %}
+{% if form.errors %}
+  <div class="alert alert-warning" role="alert">
+    Будь-ласка, виправте наступні помилки
+  </div>
+{% endif %}
+
+{{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+
+{% crispy form %}
+
+{% endblock content %}

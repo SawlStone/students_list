@@ -9,7 +9,7 @@ from django.views.generic.base import TemplateView
 from django.http import JsonResponse
 
 from students.models import MonthJournal, Student
-from ..util import paginate
+from ..util import paginate, get_current_group
 
 
 class JournalView(TemplateView):
@@ -22,7 +22,7 @@ class JournalView(TemplateView):
         # check if we need to display some specific month
         if self.request.GET.get('month'):
             month = datetime.strptime(self.request.GET['month'],
-                                       '%Y-%m-%d').date()
+                                      '%Y-%m-%d').date()
         else:
             # otherwise just displaying current month data
             today = datetime.today()
@@ -47,8 +47,12 @@ class JournalView(TemplateView):
             {'day': d, 'verbose': day_abbr[weekday(myear, mmonth, d)][:2]}
             for d in range(1, number_of_days + 1)]
 
-        # get all students from database
-        if kwargs.get('pk'):
+        # get all students from database, or just one if we need to
+        # display journal for one student
+        current_group = get_current_group(self.request)
+        if current_group:
+            queryset = Student.objects.filter(student_group=current_group).order_by('last_name')
+        elif kwargs.get('pk'):
             queryset = [Student.objects.get(pk=kwargs['pk'])]
         else:
             queryset = Student.objects.order_by('last_name')
@@ -69,22 +73,19 @@ class JournalView(TemplateView):
 
             # fill in days presence list for current student
             days = []
-            for day in range(1, number_of_days+1):
+            for day in range(1, number_of_days + 1):
                 days.append({
                     'day': day,
                     'present': journal and getattr(journal, 'present_day%d'
                                                    % day, False) or False,
-                    'date': date(myear, mmonth, day).strftime('%Y-%m-%d'),
-                })
+                    'date': date(myear, mmonth, day).strftime('%Y-%m-%d'), })
 
             # prepare metadata for current student
             students.append({
                 'fullname': '%s %s' % (student.last_name, student.first_name),
                 'days': days,
                 'id': student.id,
-                'update_url': update_url,
-
-            })
+                'update_url': update_url, })
 
             # student list pagination
             context = paginate(students, 10, self.request,
@@ -111,4 +112,3 @@ class JournalView(TemplateView):
 
         # return success status
         return JsonResponse({'status': 'success'})
-
